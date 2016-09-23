@@ -36,6 +36,13 @@ function __timestamp -S -d 'Show the current timestamp'
   date $theme_date_format
 end
 
+function __battery -S -d 'Show the battery'
+  echo -n ' '
+  set_color $fish_color_normal
+  pmset -g batt | grep "InternalBattery" | awk '{print substr($3, 1, length($3)-1)}'
+  set_color normal
+end
+
 function fish_right_prompt -d 'super simple right prompt'
   set -l __bobthefish_left_arrow_glyph '❮'
 
@@ -43,5 +50,6 @@ function fish_right_prompt -d 'super simple right prompt'
 
   __cmd_duration
   __timestamp
+  __battery
   set_color normal
 end
